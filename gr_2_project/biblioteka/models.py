@@ -8,7 +8,11 @@ MONTHS = models.IntegerChoices(
     'Miesiace',
     'Styczeń Luty Marzec Kwiecień Maj Czerwiec Lipiec Sierpień Wrzesień Październik Listopad Grudzień'
 )
-
+# Lista wyboru płci
+PLEC = models.IntegerChoices(
+    'Płeć',
+    'Kobieta Mężczyzna Inna'
+)
 # Lista wyboru formatu książki
 BOOK_FORMATS = (
     ('P', 'Papierowa'),
@@ -71,7 +75,8 @@ class Osoba(models.Model):
     )
     imie = models.CharField(max_length=50, null=False, blank=False)
     nazwisko = models.CharField(max_length=100, null=False, blank=False)
-    plec = models.CharField(max_length=1, choices=PLEC_WYBOR, default="I")
+    plec = models.IntegerField(choices=PLEC.choices, default= PLEC.choices[2][0])
     stanowisko = models.ForeignKey(Stanowisko, on_delete=models.CASCADE)
+    data_dodania = models.DateTimeField(auto_now_add=True)
   
 
